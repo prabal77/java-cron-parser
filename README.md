@@ -41,4 +41,5 @@ $ java -jar deliveroo-cron-parser.jar "0 1-3 1-3,15 * tue-fri/tue /usr/bin/find"
 
 ## How to build
 Application uses gradle to build. gradle wrapper is already added to the repo
-<code>./gradlew clean build</code>
+<code>./gradlew clean build</code> <br>
+The build artifacts are present under app/build/ folder
