@@ -26,7 +26,9 @@ jacoco-test coverage reports can be found under <br>
 
 ## How to run
 <code>$java -jar bin/app.jar "$your input$" </code><br>
-Input should be in format: "minute hour day_of_month month day_of_week command_to_execute" e.g. */15 0 1,15 * 1-5 /usr/bin/find
+Input should be in format: <br/>
+"<b>$minute</b> <b>$hour</b> <b>$day_of_month</b> <b>$month</b> <b>$day_of_week</b> <b>$command_to_execute</b>"
+<br/>e.g. */15 0 1,15 * 1-5 /usr/bin/find
 
 ## Output
 ```bash
