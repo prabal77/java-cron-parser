@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Test numeric only patterns" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-06-20T08:10:15" hostname="a-32ccvya0kqjmu" time="0.008">
-  <properties/>
-  <testcase name="Test only integer pattern" classname="com.deliveroo.cron.util.RegexExpressionsTest$TestNumericOnlyPatterns" time="0.001"/>
-  <testcase name="Test integer pattern range" classname="com.deliveroo.cron.util.RegexExpressionsTest$TestNumericOnlyPatterns" time="0.001"/>
-  <testcase name="Test step pattern with integers only" classname="com.deliveroo.cron.util.RegexExpressionsTest$TestNumericOnlyPatterns" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
