@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CronExpression.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.deliveroo.cron.model</a> &gt; <span class="el_source">CronExpression.java</span></div><h1>CronExpression.java</h1><pre class="source lang-java linenums">package com.deliveroo.cron.model;
+
+import java.util.Objects;
+import java.util.StringJoiner;
+
+import com.deliveroo.cron.util.ParserHelper;
+
+/**
+ * Immutable model class representing a valid Cron expression.
+ * &lt;br/&gt;
+ * &lt;ul&gt;
+ *     &lt;li&gt;Minutes&lt;/li&gt;
+ *     &lt;li&gt;Hours&lt;/li&gt;
+ *     &lt;li&gt;Day of month&lt;/li&gt;
+ *     &lt;li&gt;Month&lt;/li&gt;
+ *     &lt;li&gt;Day of week&lt;/li&gt;
+ *     &lt;li&gt;Command to Execute&lt;/li&gt;
+ * &lt;/ul&gt;
+ *
+ * @author nandip
+ * @since 19-Jun-2022
+ **/
+public class CronExpression implements Cloneable {
+    private final CronField minuteField;
+    private final CronField hoursField;
+    private final CronField dayOfMonthField;
+    private final CronField monthField;
+    private final CronField dayOfWeekField;
+    private final String commandToExecute;
+
+    private CronExpression(CronField minuteField, CronField hoursField, CronField dayOfMonthField,
+<span class="fc" id="L32">                           CronField monthField, CronField dayOfWeekField, String commandToExecute) {</span>
+<span class="fc" id="L33">        this.minuteField = minuteField;</span>
+<span class="fc" id="L34">        this.hoursField = hoursField;</span>
+<span class="fc" id="L35">        this.dayOfMonthField = dayOfMonthField;</span>
+<span class="fc" id="L36">        this.monthField = monthField;</span>
+<span class="fc" id="L37">        this.dayOfWeekField = dayOfWeekField;</span>
+<span class="fc" id="L38">        this.commandToExecute = commandToExecute;</span>
+<span class="fc" id="L39">    }</span>
+
+    /**
+     * Get instance of {@link CronExpressionBuilder}
+     *
+     * @return CronExpressionBuilder instance
+     */
+    public static CronExpressionBuilder builder() {
+<span class="fc" id="L47">        return new CronExpressionBuilder();</span>
+    }
+
+    /**
+     * Get minute CronField
+     *
+     * @return minute field
+     */
+    public CronField getMinuteField() {
+<span class="fc" id="L56">        return minuteField;</span>
+    }
+
+    /**
+     * Get hours CronField
+     *
+     * @return hours field
+     */
+    public CronField getHoursField() {
+<span class="fc" id="L65">        return hoursField;</span>
+    }
+
+    /**
+     * Get day of minute CronField
+     *
+     * @return day of minute field
+     */
+    public CronField getDayOfMonthField() {
+<span class="fc" id="L74">        return dayOfMonthField;</span>
+    }
+
+    /**
+     * Get month CronField
+     *
+     * @return month field
+     */
+    public CronField getMonthField() {
+<span class="fc" id="L83">        return monthField;</span>
+    }
+
+    /**
+     * Get day of week CronField
+     *
+     * @return minute field
+     */
+    public CronField getDayOfWeekField() {
+<span class="fc" id="L92">        return dayOfWeekField;</span>
+    }
+
+    /**
+     * Get Command to execute CronField
+     *
+     * @return Command to execute field
+     */
+    public String getCommandToExecute() {
+<span class="nc" id="L101">        return commandToExecute;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc" id="L106">        return new StringJoiner(&quot;, &quot;, CronExpression.class.getSimpleName() + &quot;[&quot;, &quot;]&quot;)</span>
+<span class="nc" id="L107">                .add(&quot;minuteField=&quot; + minuteField)</span>
+<span class="nc" id="L108">                .add(&quot;hoursField=&quot; + hoursField)</span>
+<span class="nc" id="L109">                .add(&quot;dayOfMonthField=&quot; + dayOfMonthField)</span>
+<span class="nc" id="L110">                .add(&quot;monthField=&quot; + monthField)</span>
+<span class="nc" id="L111">                .add(&quot;dayOfWeekField=&quot; + dayOfWeekField)</span>
+<span class="nc" id="L112">                .add(&quot;commandToExecute='&quot; + commandToExecute + &quot;'&quot;)</span>
+<span class="nc" id="L113">                .toString();</span>
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+<span class="nc" id="L118">        throw new CloneNotSupportedException(&quot;Cloning of the object is not supported&quot;);</span>
+    }
+
+    /**
+     * Builder class to create {@link CronExpression} instance
+     */
+<span class="fc" id="L124">    public static class CronExpressionBuilder {</span>
+        private String minuteField;
+        private String hoursField;
+        private String dayOfMonthField;
+        private String monthField;
+        private String dayOfWeekField;
+        private String commandToExecute;
+
+        /**
+         * Set Minute {@link CronField}
+         *
+         * @param minuteField
+         * @return builder instance
+         */
+        public CronExpressionBuilder setMinuteField(String minuteField) {
+<span class="fc" id="L139">            this.minuteField = minuteField;</span>
+<span class="fc" id="L140">            return this;</span>
+        }
+
+        /**
+         * Set Hours {@link CronField}
+         *
+         * @param hoursField
+         * @return builder instance
+         */
+        public CronExpressionBuilder setHoursField(String hoursField) {
+<span class="fc" id="L150">            this.hoursField = hoursField;</span>
+<span class="fc" id="L151">            return this;</span>
+        }
+
+        /**
+         * Set Day of Month {@link CronField}
+         *
+         * @param dayOfMonthField
+         * @return builder instance
+         */
+        public CronExpressionBuilder setDayOfMonthField(String dayOfMonthField) {
+<span class="fc" id="L161">            this.dayOfMonthField = dayOfMonthField;</span>
+<span class="fc" id="L162">            return this;</span>
+        }
+
+        /**
+         * Set Month {@link CronField}
+         *
+         * @param monthField
+         * @return builder instance
+         */
+        public CronExpressionBuilder setMonthField(String monthField) {
+<span class="fc" id="L172">            this.monthField = monthField;</span>
+<span class="fc" id="L173">            return this;</span>
+        }
+
+        /**
+         * Set Day of Week {@link CronField}
+         *
+         * @param dayOfWeekField
+         * @return builder instance
+         */
+        public CronExpressionBuilder setDayOfWeekField(String dayOfWeekField) {
+<span class="fc" id="L183">            this.dayOfWeekField = dayOfWeekField;</span>
+<span class="fc" id="L184">            return this;</span>
+        }
+
+        /**
+         * Set Command to execute {@link CronField}
+         *
+         * @param commandToExecute
+         * @return builder instance
+         */
+        public CronExpressionBuilder setCommandToExecute(String commandToExecute) {
+<span class="fc" id="L194">            this.commandToExecute = commandToExecute;</span>
+<span class="fc" id="L195">            return this;</span>
+        }
+
+        /**
+         * Builds and returns a new instance of {@link CronExpression}
+         *
+         * @return CronExpression
+         * @throws IllegalArgumentException
+         */
+        public CronExpression build() {
+<span class="pc bpc" id="L205" title="2 of 4 branches missed.">            if (Objects.isNull(this.commandToExecute) || this.commandToExecute.isEmpty()) {</span>
+<span class="nc" id="L206">                throw new IllegalArgumentException(&quot;Command field cannot be null or empty&quot;);</span>
+            }
+<span class="fc" id="L208">            return new CronExpression(</span>
+<span class="fc" id="L209">                    buildCronField(CronFieldType.MINUTE, this.minuteField),</span>
+<span class="fc" id="L210">                    buildCronField(CronFieldType.HOUR, this.hoursField),</span>
+<span class="fc" id="L211">                    buildCronField(CronFieldType.DAY_OF_MONTH, this.dayOfMonthField),</span>
+<span class="fc" id="L212">                    buildCronField(CronFieldType.MONTH, this.monthField),</span>
+<span class="fc" id="L213">                    buildCronField(CronFieldType.DAY_OF_WEEK, this.dayOfWeekField),</span>
+                    this.commandToExecute
+            );
+        }
+
+        /**
+         * Parse the Input String type and returns a {@link CronField} instance
+         *
+         * @param fieldType   Cron field type
+         * @param inputString input string to parse
+         * @return CronField
+         * @throws IllegalArgumentException
+         */
+        private CronField buildCronField(CronFieldType fieldType, String inputString) {
+<span class="pc bpc" id="L227" title="2 of 4 branches missed.">            if (Objects.isNull(inputString) || inputString.isEmpty()) {</span>
+<span class="nc" id="L228">                throw new IllegalArgumentException(fieldType.name() + &quot; cron field is mandatory&quot;);</span>
+            }
+<span class="fc" id="L230">            return new CronField(fieldType, ParserHelper.parseCronField(fieldType, inputString));</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

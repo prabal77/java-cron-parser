@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NameToIntegerMap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.deliveroo.cron.util</a> &gt; <span class="el_source">NameToIntegerMap.java</span></div><h1>NameToIntegerMap.java</h1><pre class="source lang-java linenums">package com.deliveroo.cron.util;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
+import com.deliveroo.cron.model.CronFieldType;
+
+/**
+ * Maps word to integer. Used as a look up table to resolve month and week day string to integer equivalent
+ *
+ * @author nandip
+ * @since 19-Jun-2022
+ **/
+<span class="nc" id="L15">public class NameToIntegerMap {</span>
+<span class="fc" id="L16">    private static final Map&lt;String, Integer&gt; monthNameMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L17">    private static final Map&lt;String, Integer&gt; dayOfWeekNameMap = new HashMap&lt;&gt;();</span>
+
+    static {
+        // jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, or dec
+<span class="fc" id="L21">        monthNameMap.put(&quot;jan&quot;, 1);</span>
+<span class="fc" id="L22">        monthNameMap.put(&quot;feb&quot;, 2);</span>
+<span class="fc" id="L23">        monthNameMap.put(&quot;mar&quot;, 3);</span>
+<span class="fc" id="L24">        monthNameMap.put(&quot;apr&quot;, 4);</span>
+<span class="fc" id="L25">        monthNameMap.put(&quot;may&quot;, 5);</span>
+<span class="fc" id="L26">        monthNameMap.put(&quot;jun&quot;, 6);</span>
+<span class="fc" id="L27">        monthNameMap.put(&quot;jul&quot;, 7);</span>
+<span class="fc" id="L28">        monthNameMap.put(&quot;aug&quot;, 8);</span>
+<span class="fc" id="L29">        monthNameMap.put(&quot;sep&quot;, 9);</span>
+<span class="fc" id="L30">        monthNameMap.put(&quot;oct&quot;, 10);</span>
+<span class="fc" id="L31">        monthNameMap.put(&quot;nov&quot;, 11);</span>
+<span class="fc" id="L32">        monthNameMap.put(&quot;dec&quot;, 12);</span>
+
+        // mon, tue, wed, thu, fri, sat, sun
+<span class="fc" id="L35">        dayOfWeekNameMap.put(&quot;mon&quot;, 1);</span>
+<span class="fc" id="L36">        dayOfWeekNameMap.put(&quot;tue&quot;, 2);</span>
+<span class="fc" id="L37">        dayOfWeekNameMap.put(&quot;wed&quot;, 3);</span>
+<span class="fc" id="L38">        dayOfWeekNameMap.put(&quot;thu&quot;, 4);</span>
+<span class="fc" id="L39">        dayOfWeekNameMap.put(&quot;fri&quot;, 5);</span>
+<span class="fc" id="L40">        dayOfWeekNameMap.put(&quot;sat&quot;, 6);</span>
+<span class="fc" id="L41">        dayOfWeekNameMap.put(&quot;sun&quot;, 7);</span>
+<span class="fc" id="L42">    }</span>
+
+    /**
+     * Returns integer equivalent of the input word. Returns Integer.MAX_VALUE if fieldStringValue is not present in cache
+     *
+     * @param fieldType Field Type
+     * @param fieldStringValue String value to resolve
+     * @return integer equivalent of the fieldStringValue
+     */
+    public static Integer getIntegerValue(CronFieldType fieldType, String fieldStringValue) {
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (Objects.equals(CronFieldType.MONTH, fieldType)) {</span>
+<span class="fc" id="L53">            return monthNameMap.getOrDefault(fieldStringValue, Integer.MAX_VALUE);</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        } else if (Objects.equals(CronFieldType.DAY_OF_WEEK, fieldType)) {</span>
+<span class="fc" id="L55">            return dayOfWeekNameMap.getOrDefault(fieldStringValue, Integer.MAX_VALUE);</span>
+        }
+<span class="nc" id="L57">        return Integer.MAX_VALUE;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
