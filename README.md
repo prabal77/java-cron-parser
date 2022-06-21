@@ -18,6 +18,7 @@ Application handles only the standard cron syntax format, as defined here https:
 Can also use https://crontab.guru/ to validate the cron expression.<br>
 
 <p>
+<br> Source folder: <b>cron</b></br>
 <b>
 Version 1.0 binary can be found in <i>bin/</i><br> 
 jacoco-test coverage reports can be found under <i>jacoco-report</i> <br>
