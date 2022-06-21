@@ -8,4 +8,4 @@
  */
 
 rootProject.name = "cron-tab"
-include("app")
+include("cron")

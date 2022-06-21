@@ -19,15 +19,16 @@ Can also use https://crontab.guru/ to validate the cron expression.<br>
 
 <p>
 <b>
-Version 1.0 can be found in bin/<br> 
-jacoco-test coverage reports can be found under <br>
+Version 1.0 binary can be found in <i>bin/</i><br> 
+jacoco-test coverage reports can be found under <i>jacoco-report</i> <br>
+javadocs coverage reports can be found under <i>javadoc</i> <br>
 </b>
 </p>
 
 ## How to run
-<code>$java -jar bin/app.jar "$your input$" </code><br>
+<code>$java -jar bin/cron.jar "$your input$" </code><br>
 Input should be in format: <br/>
-"<b>$minute</b> <b>$hour</b> <b>$day_of_month</b> <b>$month</b> <b>$day_of_week</b> <b>$command_to_execute</b>"
+"<i>$minute</i> <i>$hour</i> <i>$day_of_month</i> <i>$month</i> <i>$day_of_week</i> <i>$command_to_execute</i>"
 <br/>e.g. */15 0 1,15 * 1-5 /usr/bin/find
 
 ## Output
@@ -43,5 +44,27 @@ $ java -jar deliveroo-cron-parser.jar "0 1-3 1-3,15 * tue-fri/tue /usr/bin/find"
 
 ## How to build
 Application uses gradle to build. gradle wrapper is already added to the repo
-<code>./gradlew clean build</code> <br>
-The build artifacts are present under app/build/ folder
+<br><code>deliveroo-cron$: ./gradlew clean build jacocoTestReport javadoc</code> </r><br>
+<br><i>jacocoTestReport and javadoc targets are optional</i></br>
+<br>
+The build artifacts are present under cron/build/ folder
+</br>
+
+## Parsing logic used
+<b><i>Also mentioned in the javadoc</i></b>
+
+<br>Input string is split along "," into multiple input fragments.
+<br>Followed by parsing each fragment and returning a merged list of valid values extracted from those input fragments (distinct values).
+<p>
+    <br>Each input fragment is parsed based on whether it supports numeric only value (minute, hour and day of month) or alphanumeric (month and day of week).
+    <br>Uses Regular expressions (refer RegexExpressions) to match and extract parts from input fragments.
+    <br>"Word" inputs e.g. jan, feb, sun, mon (case in-sensitive) are converted into equivalent integers (refer NameToIntegerMap) and treated as integer values.
+    <br>Supports various combinations e.g.
+    <ul>
+        <li>single integer. e.g. 12, 1</li>
+        <li>single word. e.g. jan, feb, sun, MON</li>
+        <li>integer range e.g. 2-10, 40-59</li>
+        <li>word range. e.g. jan-oct, mon-fri</li>
+        <li>alphanumeric range. e.g. jan-5, 2-thu</li>
+        <li>step functions with alphanumeric step value field and all above mentioned combinations in range field. e.g. '*'/4, 2-5/jan, jan-oct/3, feb/oct</li>
+    </ul>
