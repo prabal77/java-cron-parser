@@ -65,7 +65,14 @@ public class FragmentHandler {
     public static Set<Integer> handleNumericRangePatternMatch(String startValue, String endValue, int minValue, int maxValue) {
         Integer start = handleSingleNumericMatch(startValue, minValue, maxValue);
         Integer end = handleSingleNumericMatch(endValue, minValue, maxValue);
-        return IntStream.range(start, end + 1).mapToObj(Integer::valueOf).collect(Collectors.toSet());
+        if (start <= end) {
+            return IntStream.range(start, end + 1).mapToObj(Integer::valueOf).collect(Collectors.toSet());
+        } else {
+            Set<Integer> outputSet = new HashSet<>();
+            outputSet.addAll(IntStream.range(start, maxValue+1).boxed().collect(Collectors.toSet()));
+            outputSet.addAll(IntStream.range(minValue, end+1).boxed().collect(Collectors.toSet()));
+            return outputSet;
+        }
     }
 
     /**
@@ -100,7 +107,7 @@ public class FragmentHandler {
     /**
      * Returns single integer value, as defined by the input value (String).
      *
-     * @param fieldType Cron expression field type
+     * @param fieldType  Cron expression field type
      * @param inputValue Input word as provided
      * @param minValue   min value
      * @param maxValue   max value

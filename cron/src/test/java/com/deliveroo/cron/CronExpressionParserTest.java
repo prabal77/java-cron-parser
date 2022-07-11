@@ -1,5 +1,6 @@
 package com.deliveroo.cron;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -159,6 +160,18 @@ public class CronExpressionParserTest {
         expectedOutput = List.of(1);
         expression = CronExpressionParser.parse("* * * jan-oct/dec * /usr/find");
         Assertions.assertIterableEquals(expectedOutput, expression.getMonthField().getInputValues());
+    }
+
+    @Test
+    void test(){
+        CronExpression expression = CronExpressionParser.parse("*/15 0 1,15 * 1-5 /usr/bin/find");
+        System.out.println(expression.getDayOfWeekField());
+    }
+
+    @Test
+    void test2(){
+        CronExpression expression = CronExpressionParser.parse("*/15 0 1,15 * 1-5 /usr/bin/find");
+        CronExecutor.getNextDate(expression, LocalDateTime.now());
     }
 
     @Test
