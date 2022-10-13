@@ -1,4 +1,4 @@
-# deliveroo-cron
+# java-cron-parser
 
 ## Objective: 
 Custom cron parser, which satisfies the problem statement
